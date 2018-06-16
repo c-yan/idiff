@@ -95,7 +95,7 @@ begin
       end;
     end;
   end;
-  StatusBar.SimpleText := Format('Result: %.8f / %d', [Z / (Bmp1.Width * Bmp1.Height) / 3, M]);
+  StatusBar.SimpleText := Format('ХљЛѕ: %.4f / Н≈Се: %d', [Z / (Bmp1.Width * Bmp1.Height) / 3, M]);
 
   Bmp1.Free;
   Bmp2.Free;
