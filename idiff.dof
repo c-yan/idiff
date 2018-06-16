@@ -28,7 +28,6 @@ Z=1
 ShowHints=1
 ShowWarnings=1
 UnitAliases=WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;DbiErrs=BDE;
-
 [Linker]
 MapFile=0
 OutputObjs=0
@@ -39,7 +38,6 @@ MinStackSize=16384
 MaxStackSize=1048576
 ImageBase=4194304
 ExeDescription=
-
 [Directories]
 OutputDir=
 UnitOutputDir=
@@ -50,11 +48,9 @@ Packages=VCL40;VCLX40;nmfast40;VCLDB40;VCLDBX40;VCLSMP40;QRPT40;TEEUI40;TEEDB40;
 Conditionals=
 DebugSourceDirs=
 UsePackages=0
-
 [Parameters]
 RunParams=
 HostApplication=
-
 [Version Info]
 IncludeVerInfo=1
 AutoIncBuild=0
@@ -69,7 +65,6 @@ Private=0
 DLL=0
 Locale=1041
 CodePage=932
-
 [Version Info Keys]
 CompanyName=$
 FileDescription=Image Difference Calculator v1.3.0 #4
