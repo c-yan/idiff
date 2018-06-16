@@ -36,6 +36,12 @@ implementation
 procedure TMainForm.FormCreate(Sender: TObject);
 begin
   DragAcceptFiles(Handle, True);
+  if ParamCount = 2 then
+  begin
+    FileName1Edit.Text := ParamStr(1);
+    FileName2Edit.Text := ParamStr(2);
+    ExecButtonClick(nil);
+  end;
 end;
 
 procedure TMainForm.WMDropFiles(var Msg: TWMDropFiles);
