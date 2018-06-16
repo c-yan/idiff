@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms,
-  StdCtrls, ComCtrls, ShellApi, Clipbrd;
+  StdCtrls, ComCtrls, ShellApi, Clipbrd, GIFImg, jpeg, pngimage;
 
 type
   TMainForm = class(TForm)
@@ -23,7 +23,7 @@ type
   end;
 
   TByteTriple = packed array[0..2] of Byte;
-  TByteTripleArray = array[0..400000] of TByteTriple;
+  TByteTripleArray = array[0..0] of TByteTriple;
   PByteTripleArray = ^TByteTripleArray;
 
 var
@@ -65,46 +65,58 @@ begin
 end;
 
 procedure TMainForm.ExecButtonClick(Sender: TObject);
+  function LoadImage(FileName: string): TBitmap;
+  var
+    Picture: TPicture;
+  begin
+    Result := TBitmap.Create();
+    Picture := TPicture.Create();
+    try
+      Picture.LoadFromFile(FileName);
+      Result.Assign(Picture.Graphic);
+    finally
+      Picture.Free();
+    end;
+  end;
 var
   Bmp1, Bmp2: TBitmap;
   I, X, Y, Z, M, N: Integer;
   P1, P2: PByteTripleArray;
 begin
-  Bmp1 := TBitmap.Create;
-  Bmp2 := TBitmap.Create;
-
-  Bmp1.LoadFromFile(FileName1Edit.Text);
-  Bmp2.LoadFromFile(FileName2Edit.Text);
-
-  if (Bmp1.Width <> Bmp2.Width) or (Bmp1.Height <> Bmp2.Height) then
-  begin
-    StatusBar.SimpleText := 'Size mismatch';
-    Exit;
-  end;
-
-  Bmp1.PixelFormat := pf24bit;
-  Bmp2.PixelFormat := pf24bit;
-
-  Z := 0;
-  M := 0;
-  for Y := 0 to Bmp1.Height - 1 do
-  begin
-    P1 := Bmp1.ScanLine[Y];
-    P2 := Bmp2.ScanLine[Y];
-    for X := 0 to Bmp1.Width - 1 do
+  Bmp1 := LoadImage(FileName1Edit.Text);
+  Bmp2 := LoadImage(FileName2Edit.Text);
+  try
+    if (Bmp1.Width <> Bmp2.Width) or (Bmp1.Height <> Bmp2.Height) then
     begin
-      for I := 0 to 2 do
+      StatusBar.SimpleText := 'Size mismatch';
+      Exit;
+    end;
+
+    Bmp1.PixelFormat := pf24bit;
+    Bmp2.PixelFormat := pf24bit;
+
+    Z := 0;
+    M := 0;
+    for Y := 0 to Bmp1.Height - 1 do
+    begin
+      P1 := Bmp1.ScanLine[Y];
+      P2 := Bmp2.ScanLine[Y];
+      for X := 0 to Bmp1.Width - 1 do
       begin
-        N := Abs(P1[X][I] - P2[X][I]);
-        Inc(Z, N);
-        if (N > M) then M := N;
+        for I := 0 to 2 do
+        begin
+          N := Abs(P1[X][I] - P2[X][I]);
+          Inc(Z, N);
+          if (N > M) then M := N;
+        end;
       end;
     end;
-  end;
-  StatusBar.SimpleText := Format('ïΩãœ: %.4f / ç≈ëÂ: %d', [Z / (Bmp1.Width * Bmp1.Height) / 3, M]);
 
-  Bmp1.Free;
-  Bmp2.Free;
+    StatusBar.SimpleText := Format('ïΩãœ: %.4f / ç≈ëÂ: %d', [Z / (Bmp1.Width * Bmp1.Height) / 3, M]);
+  finally
+    Bmp1.Free();
+    Bmp2.Free();
+  end;
 end;
 
 procedure TMainForm.CopyButtonClick(Sender: TObject);
