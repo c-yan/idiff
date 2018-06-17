@@ -1,10 +1,12 @@
-unit main;
+Ôªøunit main;
 
 interface
 
 uses
-  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms,
-  StdCtrls, ComCtrls, ShellApi, Clipbrd, GIFImg, jpeg, pngimage;
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Classes,
+  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.StdCtrls, Vcl.ComCtrls,
+  Winapi.ShellApi, Vcl.Clipbrd, Vcl.Imaging.GIFImg, Vcl.Imaging.jpeg,
+  Vcl.Imaging.pngimage;
 
 type
   TMainForm = class(TForm)
@@ -19,7 +21,7 @@ type
   private
     procedure WMDropFiles(var Msg: TWMDropFiles); message WM_DROPFILES;
   public
-    { Public êÈåæ }
+    { Public ÂÆ£Ë®Ä }
   end;
 
   TByteTriple = packed array[0..2] of Byte;
@@ -112,7 +114,7 @@ begin
       end;
     end;
 
-    StatusBar.SimpleText := Format('ïΩãœ: %.4f / ç≈ëÂ: %d', [Z / (Bmp1.Width * Bmp1.Height) / 3, M]);
+    StatusBar.SimpleText := Format('Âπ≥Âùá: %.4f / ÊúÄÂ§ß: %d', [Z / (Bmp1.Width * Bmp1.Height) / 3, M]);
   finally
     Bmp1.Free();
     Bmp2.Free();

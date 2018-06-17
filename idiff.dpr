@@ -1,13 +1,14 @@
 program idiff;
 
 uses
-  Forms,
+  Vcl.Forms,
   main in 'main.pas' {MainForm};
 
-{$R *.RES}
+{$R *.res}
 
 begin
   Application.Initialize;
+  Application.MainFormOnTaskbar := True;
   Application.Title := 'Image Difference Calculator';
   Application.CreateForm(TMainForm, MainForm);
   Application.Run;
