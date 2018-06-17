@@ -1,5 +1,7 @@
 program idiff;
 
+{$WEAKLINKRTTI ON}
+
 uses
   Vcl.Forms,
   main in 'main.pas' {MainForm};
