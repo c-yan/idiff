@@ -69,15 +69,20 @@ end;
 procedure TMainForm.ExecButtonClick(Sender: TObject);
   function LoadImage(FileName: string): TBitmap;
   var
-    Picture: TPicture;
+    WICImage: TWICImage;
   begin
-    Result := TBitmap.Create();
-    Picture := TPicture.Create();
+    WICImage := TWICImage.Create;
     try
-      Picture.LoadFromFile(FileName);
-      Result.Assign(Picture.Graphic);
+      try
+        WICImage.LoadFromFile(FileName);
+      except
+        Result := nil;
+        Exit;
+      end;
+      Result := TBitmap.Create;
+      Result.Assign(WICImage);
     finally
-      Picture.Free();
+      FreeAndNil(WICImage);
     end;
   end;
 var
@@ -116,8 +121,8 @@ begin
 
     StatusBar.SimpleText := Format('平均: %.4f / 最大: %d', [Z / (Bmp1.Width * Bmp1.Height) / 3, M]);
   finally
-    Bmp1.Free();
-    Bmp2.Free();
+    FreeAndNil(Bmp2);
+    FreeAndNil(Bmp1);
   end;
 end;
 
