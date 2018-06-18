@@ -90,6 +90,11 @@ var
   I, X, Y, Z, M, N: Integer;
   P1, P2: PByteTripleArray;
 begin
+  if (not FileExists(FileName1Edit.Text)) or (not FileExists(FileName2Edit.Text)) then
+  begin
+    StatusBar.SimpleText := 'File does not exist';
+    Exit;
+  end;
   Bmp1 := LoadImage(FileName1Edit.Text);
   Bmp2 := LoadImage(FileName2Edit.Text);
   try
