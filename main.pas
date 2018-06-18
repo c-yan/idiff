@@ -119,7 +119,7 @@ begin
       end;
     end;
 
-    StatusBar.SimpleText := Format('平均: %.4f / 最大: %d', [Z / (Bmp1.Width * Bmp1.Height) / 3, M]);
+    StatusBar.SimpleText := Format('Average: %.4f / Max: %d', [Z / (Bmp1.Width * Bmp1.Height) / 3, M]);
   finally
     FreeAndNil(Bmp2);
     FreeAndNil(Bmp1);
